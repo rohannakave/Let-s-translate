@@ -19,7 +19,8 @@ def sparse_cross_entropy(y_true, y_pred):
 def load():
     global sess
     sess = tf.Session()
-    set_session(sess)
+    tf.keras.backend.set_session(sess)
+    #set_session(sess)
     global model, model_encoder, model_decoder, data_src, data_dest, num_words, mark_start, mark_end, tokenizer_dest, tokenizer_src, language_code, token_start, token_end
     model_train = load_model('my_modeleng-fr.h5',  custom_objects={'sparse_cross_entropy':sparse_cross_entropy})
     model_encoder = load_model('model_encodereng_fr.hdf5')
@@ -44,6 +45,7 @@ def load():
                            padding='pre',
                            reverse=True,
                            num_words=num_words)
+    print("good")
     tokenizer_dest = tokenizer.TokenizerWrap(texts=data_dest,
                            padding='post',
                             reverse=False,
@@ -58,7 +60,8 @@ def translate():
     input_text = data['sent']
     input_tokens = tokenizer_src.text_to_tokens(text=input_text, reverse=True, padding=True)
     with graph.as_default():
-        set_session(sess)
+        tf.keras.backend.set_session(sess)
+        #set_session(sess)
         initial_state = model_encoder.predict(input_tokens)
     max_tokens = tokenizer_dest.max_tokens
     shape = (1, max_tokens)
@@ -67,7 +70,8 @@ def translate():
     output_text = ''
     count_tokens = 0
     with graph.as_default():
-        set_session(sess)
+        tf.keras.backend.set_session(sess)
+        #set_session(sess)
         while token_int != token_end and count_tokens < max_tokens:
             decoder_input_data[0, count_tokens] = token_int
             x_data = \
