@@ -52,7 +52,7 @@ def load():
                             num_words=num_words)
     token_start = tokenizer_dest.word_index[mark_start.strip()]
     token_end = tokenizer_dest.word_index[mark_end.strip()]
-
+load()
 
 @app.route('/', methods=['POST'])
 def translate():
@@ -99,6 +99,5 @@ def translate():
 
 if __name__ == "__main__":
     print("welcome")
-    load()
     app.run(debug=True)
     #app.run(host='0.0.0.0', port=8080)
