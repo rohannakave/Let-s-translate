@@ -30,6 +30,7 @@ def load():
     language_code='fr'
     mark_start = 'ssss '
     mark_end = ' eeee'
+    europarl.maybe_download_and_extract(language_code=language_code)
 
     data_src = europarl.load_data(english=True,
                           language_code=language_code)
